@@ -1,0 +1,30 @@
+.transaction-table {
+    background: #eedcf2;    
+    width: 80%;
+    margin: auto;
+    padding: 20px 20px;
+}
+
+.transaction-line {
+    margin: 5px 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.transaction-title {
+    color: #995db5;
+    font-size: 25px;
+    width: 25%;
+    text-align: center;
+}
+.transaction-column {
+    width: 25%;
+    font-size: 15px;
+    color: #995db5;
+    text-align: center;
+    padding: 5px;
+}
+
+.add-button {
+    background: #c2c1e1;
+}

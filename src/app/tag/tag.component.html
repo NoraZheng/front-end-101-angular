@@ -1,0 +1,15 @@
+<p>{{data.merchantName}} </p>
+<p>{{data.transactionDt}}</p>
+<p>You can modify the following tags or add new tags to this transaction</p>
+<div *ngIf="tags">
+  <p *ngFor="let tag of tags">#{{tag.tagName}}</p>
+</div>
+
+<mat-form-field>
+  <input matInput placeholder="add Tag" [(ngModel)]="newTag">
+</mat-form-field>
+
+<div>
+  <button mat-button (click)="addCustomTag()">Add</button>
+<button mat-button (click)="close()">Cancel</button>
+</div>
