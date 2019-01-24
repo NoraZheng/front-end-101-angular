@@ -14,8 +14,9 @@ export class TagComponent implements OnInit {
 
   tags: Tag[];
   newTag: string;
-  constructor(private dialogRef: MatDialogRef<TransactionsComponent>,
+  constructor(private dialogRef: MatDialogRef<TransactionsComponent>, //<Transac...> pointer to the 'parent' component
     private tagService: TagService,
+    // annotation that is like a pointer to the data in the 
     @Inject(MAT_DIALOG_DATA) private data: Transaction) { }
 
   ngOnInit() {
@@ -24,7 +25,8 @@ export class TagComponent implements OnInit {
   }
 
   addCustomTag() {
-    this.tagService.tagTransactions(this.data.transactionID, this.newTag).subscribe((res)=> {
+    this.tagService.tagTransactions(this.data.transactionID, this.newTag).subscribe((res) => {
+      // updating UI
       this.dialogRef.close();
     });
   }
