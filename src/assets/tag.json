@@ -1,0 +1,18 @@
+{
+    "transactionID": "5520152942",
+    "merchantName": "Thoughtstorm",
+    "transactionAmt": 73,
+    "transactionDt": "diam",
+    "accountID": "0227761952",
+    "customerID": "9174549049",
+    "tags": [
+        {
+            "tagId": "9174549049",
+            "tagName": "Grocery"
+        },
+        {
+            "tagId": "2343432423",
+            "tagName": "Dabfeed"
+        }
+    ]
+}

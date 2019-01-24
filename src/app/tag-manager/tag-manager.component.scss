@@ -1,0 +1,15 @@
+#tag-manager{
+    display: flex;
+    justify-content: center;
+    
+    #user-id-search, #tag-section{
+        margin: 0px 50px;
+    }
+
+    #tags{
+    }
+
+    #confirm{
+        cursor: pointer;
+    }
+}

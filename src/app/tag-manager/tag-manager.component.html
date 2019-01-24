@@ -1,0 +1,14 @@
+<div id="tag-manager">
+  <div id="user-id-search">
+    <h1>User ID:</h1>
+    <form [formGroup]="tagManagerForm" (ngSubmit)="showTagsByCustomerId()">
+      <label for="userId" class="visuallyhidden"></label>
+      <input type="text" id="userId" formControlName="userId">
+    </form>
+  </div>
+  <div id="tag-section">
+    <h1>Your tags:</h1>
+    <div id="tags"></div>
+    <button id="confirm" (click)="proceed()">Proceed with these tags</button>
+  </div>
+</div>
