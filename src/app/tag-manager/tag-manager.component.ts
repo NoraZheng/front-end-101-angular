@@ -1,40 +1,74 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '../../../node_modules/@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, Validators } from '../../../node_modules/@angular/forms';
 import { Router } from '../../../node_modules/@angular/router';
 import { TagService } from '../../service/tag.service';
+import { MatDialog } from '../../../node_modules/@angular/material';
+import { TagEditorComponent } from '../tag-editor/tag-editor.component';
+
 
 @Component({
   selector: 'app-tag-manager',
   templateUrl: './tag-manager.component.html',
   styleUrls: ['./tag-manager.component.scss']
 })
-export class TagManagerComponent implements OnInit {
+export class TagManagerComponent {
+  tagManagerForm = this.fb.group({
+    userId: ['', Validators.required]
+  })
+  tagsPresent: Boolean = false;
+  tagError: Boolean = false;
+  filteredTags: Object[];
+  @ViewChild('errorMessage') errorMessage: ElementRef;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private tag: TagService
+    private tag: TagService,
+    private dialog: MatDialog
   ) { }
-
-  tagManagerForm = this.fb.group({
-    userId: ['']
-  })
-
-  ngOnInit() { }
 
   get userId() {
     return this.tagManagerForm.get('userId');
   }
 
-  showTagsByCustomerId() {
-    console.log(this.userId.value);
-    this.tag.getTagsLocal().subscribe(resp => {
-      console.log(typeof resp);
+  getTagsByCustomerId() {
+    this.tag.getTagsLocal(this.userId.value).subscribe((resp) => {
+      try {
+        // clear error div value
+        if (this.tagError) {
+          this.tagError = !this.tagError;
+          this.errorMessage.nativeElement.value = "";
+        }
+        this.filteredTags = resp;
+        this.filteredTags.length > 0 ? this.tagsPresent = true : this.tagsPresent = false;
+      } catch (e) {
+        this.tagError = true;
+        throw new Error(`Could not find records matching that customerId 
+       ${e}`)
+      }
+      // resp.forEach((user) => {
+      //     user must conform to shape of tag.ts interface. 
+      //     How come it does type checking here? As opposed to at resp? (which should be an array)
+      //     console.log(user.tagId);
+      // });
     })
   }
 
   proceed() {
     this.router.navigate(['/transactions']);
+  }
+
+  openTagDialog() {
+    // this.dialog.open() returns a MatDialogRef
+    const dialogRef = this.dialog.open(TagEditorComponent, {
+      height: '200px',
+      width: '400px',
+      data: this.filteredTags
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog was closed');
+    })
   }
 
 }

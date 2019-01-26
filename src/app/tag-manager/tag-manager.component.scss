@@ -4,9 +4,22 @@
     
     #user-id-search, #tag-section{
         margin: 0px 50px;
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
-    #tags{
+    #tags, #errorMessage{
+        padding-bottom: 20px;
+    }
+
+    #editors{
+        margin-top: 60px;
+        width: 200px;
+        display: flex;
+        justify-content: center;
     }
 
     #confirm{

@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '../../node_modules/@angular/router';
 import { TagManagerComponent } from './tag-manager/tag-manager.component';
+import { TagEditorComponent } from './tag-editor/tag-editor.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TagManagerComponent } from './tag-manager/tag-manager.component';
     TransactionsComponent,
     TagComponent,
     TagComponent,
-    TagManagerComponent
+    TagManagerComponent,
+    TagEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,6 @@ import { TagManagerComponent } from './tag-manager/tag-manager.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [TagComponent]
+  entryComponents: [TagComponent, TagEditorComponent]
 })
 export class AppModule { }

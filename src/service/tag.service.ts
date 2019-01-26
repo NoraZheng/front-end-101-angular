@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Tag } from 'src/model/tag';
-import { localTag } from 'src/model/localTag'
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -14,14 +13,14 @@ export class TagService {
 
   getTagsUrl = '/api/tag/all-tag';
   tagTransactionUrl = '/api/tag/transaction';
-  localGetTagsUrl = '../assets/transaction.json';
+  localGetTagsUrl = 'http://localhost:3600/getTags/';
 
   getTags(): Observable<Tag[]> {
     return this.http.get<Tag[]>(this.getTagsUrl);
   }
 
-  getTagsLocal(): Observable<localTag[]> {
-    return this.http.get<localTag[]>(this.localGetTagsUrl)
+  getTagsLocal(customerId): Observable<Tag[]> {
+    return this.http.get<Tag[]>(`${this.localGetTagsUrl}${customerId}`)
       .pipe(
         catchError(this.handleError)
       );
