@@ -14,7 +14,7 @@
     <div *ngIf="tagsPresent" id="tags">
       <div *ngFor="let tag of filteredTags">{{tag.tagName}}</div>
       <div id="editors">
-        <button *ngIf="!tagError" (click)="openTagDialog()" id="addTagEditor">Add a Tag</button>
+        <button *ngIf="!tagError" (click)="openTagDialog()" id="addTagEditor">Add Tags</button>
         <button *ngIf="!tagError" (click)="openTagDialog()" id="editTagEditor">Edit a Tag</button>
       </div>
     </div>

@@ -15,6 +15,8 @@ import { RouterModule } from '@angular/router';
 import { TagManagerComponent } from './tag-manager/tag-manager.component';
 import { TagAddComponent } from './tag-add/tag-add.component';
 import { TagEditComponent } from './tag-edit/tag-edit.component';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import { TagEditComponent } from './tag-edit/tag-edit.component';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxWebstorageModule.forRoot(),
     RouterModule.forRoot([
       { path: '', redirectTo: 'tagManager', pathMatch: 'full' },
       { path: 'tagManager', component: TagManagerComponent },

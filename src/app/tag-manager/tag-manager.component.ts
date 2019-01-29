@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { TagService } from '../../service/tag.service';
 import { MatDialog } from '@angular/material';
 import { TagAddComponent } from '../tag-add/tag-add.component';
+import { SessionStorageService } from 'ngx-webstorage';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class TagManagerComponent {
     private fb: FormBuilder,
     private router: Router,
     private tag: TagService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private sessSt: SessionStorageService
   ) { }
 
   get userId() {
@@ -51,11 +53,8 @@ export class TagManagerComponent {
       //     How come it does type checking here? As opposed to at resp? (which should be an array)
       //     console.log(user.tagId);
       // });
+      this.sessSt.store('filteredTags', this.filteredTags);
     })
-  }
-
-  proceed() {
-    this.router.navigate(['/transactions']);
   }
 
   openTagDialog() {
@@ -70,6 +69,10 @@ export class TagManagerComponent {
       console.log('Dialog was closed');
       this.filteredTags = result;
     })
+  }
+
+  proceed() {
+    this.router.navigate(['/transactions']);
   }
 
 

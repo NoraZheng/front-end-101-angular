@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TagManagerComponent } from '../tag-manager/tag-manager.component';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TagService } from '../../service/tag.service';
+import { SessionStorageService } from '../../../node_modules/ngx-webstorage';
 
 @Component({
   selector: 'app-tag-add',
@@ -25,6 +26,7 @@ export class TagAddComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private tagService: TagService,
+    private sessSt: SessionStorageService
   ) {
     // we are subscribing to the click event of the backdrop
     this.dialogRef.backdropClick().subscribe(resp => {
@@ -36,7 +38,7 @@ export class TagAddComponent implements OnInit {
   ngOnInit() { this.dataFromTagManager = this.data; }
 
   // sends data when closing esc on dialog box
-  @HostListener('window:keyup.esc') onKeyUp() {
+  @HostListener('window:keydown.esc') onKeyUp() {
     this.closeDialog();
   }
 
@@ -48,6 +50,7 @@ export class TagAddComponent implements OnInit {
     // pass data to 'parent' here
     console.log(`All tags: ${JSON.stringify(this.allTags)}`);
     console.log(`Filtered tags: ${JSON.stringify(this.data.filteredTags)}`);
+    this.sessSt.store('filteredTags', this.allTags || this.data.filteredTags);
     this.dialogRef.close(this.allTags || this.data.filteredTags);
   }
 
@@ -59,7 +62,6 @@ export class TagAddComponent implements OnInit {
         this.tagNameAdded = this.addedTagResponse.statusMsg;
         this.responseCode = this.addedTagResponse.statusCode;
         this.allTags = this.addedTagResponse.allTags;
-        console.log(this.addedTagResponse);
       } catch (e) {
         throw Error(e);
       }
