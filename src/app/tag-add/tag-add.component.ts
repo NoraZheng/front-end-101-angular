@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TagManagerComponent } from '../tag-manager/tag-manager.component';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -25,23 +25,20 @@ export class TagAddComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private tagService: TagService,
-    private renderer: Renderer2,
   ) {
     // we are subscribing to the click event of the backdrop
     this.dialogRef.backdropClick().subscribe(resp => {
       this.closeDialog();
       console.log('closed by backdrop');
     })
-
-    this.renderer.listen(window, "mousedown", (event) => {
-      if (event.keyCode === 27) {
-        this.closeDialog();
-        console.log('closed by esc');
-      }
-    })
   }
 
   ngOnInit() { this.dataFromTagManager = this.data; }
+
+  // sends data when closing esc on dialog box
+  @HostListener('window:keyup.esc') onKeyUp() {
+    this.closeDialog();
+  }
 
   get tag() {
     return this.addTagForm.get('tag');
@@ -49,8 +46,8 @@ export class TagAddComponent implements OnInit {
 
   closeDialog() {
     // pass data to 'parent' here
-    console.log(this.allTags);
-    console.log(this.data.filteredTags);
+    console.log(`All tags: ${JSON.stringify(this.allTags)}`);
+    console.log(`Filtered tags: ${JSON.stringify(this.data.filteredTags)}`);
     this.dialogRef.close(this.allTags || this.data.filteredTags);
   }
 

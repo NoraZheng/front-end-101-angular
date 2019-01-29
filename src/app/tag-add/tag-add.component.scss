@@ -1,6 +1,8 @@
 .add-tag-section{
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     position: relative;
 
     .fa-times{
@@ -14,23 +16,28 @@
     }
 
     form{
-        height: 125px;
-        width: 150px;
+        height: 100px;
+        width: 100%;
         flex-direction: column;
         display: flex;
         justify-content: center;
-        align-items: space-between;
+        align-items: center;
 
         input{
-            padding: 5px;
+            padding: 5px 25px;
             font-size: 14px;
             border: 2px solid transparent;
             border-bottom: 1.5px solid black;
+            width: 75px;
         }
 
         input:focus{
             outline: none;
             border-bottom: 1.5px solid #995db5;
+        }
+
+        input::-webkit-input-placeholder{
+            text-align: center;
         }
 
         #cannotBeEmptyError{
@@ -47,9 +54,16 @@
             display: flex;
             justify-content: space-between;
 
-            #add-button, #cancel-button{
+            #add-button{
                 margin-top: 15px;
             }
         }
+    }
+
+    #cancel-button{
+        height: 18px;
+        width: 62.27px;
+        position: relative;
+        top: -7px;
     }
 }

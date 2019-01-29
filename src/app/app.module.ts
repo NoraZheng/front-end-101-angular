@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TagManagerComponent } from './tag-manager/tag-manager.component';
 import { TagAddComponent } from './tag-add/tag-add.component';
+import { TagEditComponent } from './tag-edit/tag-edit.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { TagAddComponent } from './tag-add/tag-add.component';
     TagComponent,
     TagComponent,
     TagManagerComponent,
-    TagAddComponent
+    TagAddComponent,
+    TagEditComponent
   ],
   imports: [
     BrowserModule,
