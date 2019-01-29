@@ -1,0 +1,55 @@
+.add-tag-section{
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    .fa-times{
+        position: absolute;
+        left: 0; 
+        top: -5px;
+    }
+
+    .fa-times:hover{
+        color: #995db5;
+    }
+
+    form{
+        height: 125px;
+        width: 150px;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: space-between;
+
+        input{
+            padding: 5px;
+            font-size: 14px;
+            border: 2px solid transparent;
+            border-bottom: 1.5px solid black;
+        }
+
+        input:focus{
+            outline: none;
+            border-bottom: 1.5px solid #995db5;
+        }
+
+        #cannotBeEmptyError{
+            color: red;
+            font-size: 12px;
+        }
+
+        #addedTag{
+            color: green;
+            font-size: 12px;
+        }
+
+        #actions{
+            display: flex;
+            justify-content: space-between;
+
+            #add-button, #cancel-button{
+                margin-top: 15px;
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TransactionService } from 'src/service/transaction.service';
-import { Transaction } from 'src/model/transaction';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA }  from '@angular/material';
+import { TransactionService } from '../../service/transaction.service';
+import { Transaction } from '../../model/transaction';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TagComponent } from '../tag/tag.component';
 
 @Component({
@@ -20,13 +20,13 @@ export class TransactionsComponent implements OnInit {
     this.loadTransactions();
   }
 
-  loadTransactions() {  
+  loadTransactions() {
     this.transactionService.getTransactions().subscribe((transactions: Transaction[]) => {
       this.transactions = transactions;
-    }); 
+    });
   }
 
-  addTags (transaction: Transaction) {
+  addTags(transaction: Transaction) {
     this.dialog.open(TagComponent, {
       width: '300px',
       height: '300px',

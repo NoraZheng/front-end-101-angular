@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, Validators } from '../../../node_modules/@angular/forms';
-import { Router } from '../../../node_modules/@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TagService } from '../../service/tag.service';
-import { MatDialog } from '../../../node_modules/@angular/material';
-import { TagEditorComponent } from '../tag-editor/tag-editor.component';
+import { MatDialog } from '@angular/material';
+import { TagAddComponent } from '../tag-add/tag-add.component';
 
 
 @Component({
@@ -60,15 +60,17 @@ export class TagManagerComponent {
 
   openTagDialog() {
     // this.dialog.open() returns a MatDialogRef
-    const dialogRef = this.dialog.open(TagEditorComponent, {
+    const dialogRef = this.dialog.open(TagAddComponent, {
       height: '200px',
       width: '400px',
-      data: this.filteredTags
+      data: { custId: this.userId.value, filteredTags: this.filteredTags }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog was closed');
+      this.filteredTags = result;
     })
   }
+
 
 }
