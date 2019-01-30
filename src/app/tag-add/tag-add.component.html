@@ -1,0 +1,14 @@
+<!-- <div *ngFor="let tag of data">{{tag.tagName}}</div> -->
+<div class="add-tag-section">
+  <i class="fas fa-times" (click)="closeDialog()"></i>
+  <form [formGroup]="addTagForm" (ngSubmit)="createTag()">
+    <label for="tag" class="visuallyhidden">Add tag:</label>
+    <input type="text" id="tag" formControlName="tag" placeholder="Enter a tag" required>
+    <div *ngIf="tag.errors?.required && tag.touched" id="cannotBeEmptyError">Tag cannot be empty</div>
+    <div *ngIf="responseCode === 200" id="addedTag">{{tagNameAdded}}</div>
+    <div id="actions">
+      <button type="submit" id="add-button">Add Tag!</button>
+    </div>
+  </form>
+  <button id="cancel-button" (click)="closeDialog()">Cancel</button>
+</div>

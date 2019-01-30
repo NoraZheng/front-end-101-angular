@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TransactionsComponent } from '../transactions/transactions.component';
-import { TagService } from 'src/service/tag.service';
-import { Tag } from 'src/model/tag';
-import { Transaction } from 'src/model/transaction';
+import { TagService } from '../../service/tag.service';
+import { Tag } from '../../model/tag';
+import { Transaction } from '../../model/transaction';
 
 @Component({
   selector: 'app-tag',
@@ -14,8 +14,9 @@ export class TagComponent implements OnInit {
 
   tags: Tag[];
   newTag: string;
-  constructor(private dialogRef: MatDialogRef<TransactionsComponent>,
-    private tagService: TagService,
+  constructor(
+    private dialogRef: MatDialogRef<TransactionsComponent>, //<Transac...> pointer to the 'parent' component
+    private tagService: TagService, // annotation that is like a pointer to the data in the tag service
     @Inject(MAT_DIALOG_DATA) private data: Transaction) { }
 
   ngOnInit() {
@@ -24,7 +25,8 @@ export class TagComponent implements OnInit {
   }
 
   addCustomTag() {
-    this.tagService.tagTransactions(this.data.transactionID, this.newTag).subscribe((res)=> {
+    this.tagService.tagTransactions(this.data.transactionID, this.newTag).subscribe((res) => {
+      // updating UI
       this.dialogRef.close();
     });
   }
@@ -32,5 +34,7 @@ export class TagComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
+
+
 
 }

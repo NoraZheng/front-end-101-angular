@@ -1,0 +1,23 @@
+<div id="tag-manager">
+  <div id="user-id-search">
+    <h1>Customer ID:</h1>
+    <form [formGroup]="tagManagerForm" (ngSubmit)="getTagsByCustomerId()">
+      <label for="userId" class="visuallyhidden"></label>
+      <input type="text" id="userId" formControlName="userId" #userId required>
+      <div *ngIf="userId.errors?.required && userId.touched">Please enter a customer ID</div>
+      <!-- <p>{{tagManagerForm.valid}}</p> -->
+    </form>
+  </div>
+  <div id="tag-section">
+    <h1>Your tags:</h1>
+    <div *ngIf="tagError" id="errorMessage" #errorMessage>Could not find any tags for that customer ID</div>
+    <div *ngIf="tagsPresent" id="tags">
+      <div *ngFor="let tag of filteredTags">{{tag.tagName}}</div>
+      <div id="editors">
+        <button *ngIf="!tagError" (click)="openTagDialog()" id="addTagEditor">Add Tags</button>
+        <button *ngIf="!tagError" (click)="openTagDialog()" id="editTagEditor">Edit a Tag</button>
+      </div>
+    </div>
+    <button id="confirm" (click)="proceed()">Proceed with these tags</button>
+  </div>
+</div>

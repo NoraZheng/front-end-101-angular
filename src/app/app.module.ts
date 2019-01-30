@@ -10,7 +10,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagComponent } from './tag/tag.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TagManagerComponent } from './tag-manager/tag-manager.component';
+import { TagAddComponent } from './tag-add/tag-add.component';
+import { TagEditComponent } from './tag-edit/tag-edit.component';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+
 
 
 @NgModule({
@@ -18,7 +24,10 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     TransactionsComponent,
     TagComponent,
-    TagComponent
+    TagComponent,
+    TagManagerComponent,
+    TagAddComponent,
+    TagEditComponent
   ],
   imports: [
     BrowserModule,
@@ -29,10 +38,17 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    NgxWebstorageModule.forRoot(),
+    RouterModule.forRoot([
+      { path: '', redirectTo: 'tagManager', pathMatch: 'full' },
+      { path: 'tagManager', component: TagManagerComponent },
+      { path: 'transactions', component: TransactionsComponent }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [TagComponent]
+  entryComponents: [TagComponent, TagAddComponent]
 })
 export class AppModule { }
