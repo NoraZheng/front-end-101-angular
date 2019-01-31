@@ -15,8 +15,6 @@ export class TagAddComponent implements OnInit {
     tag: ['', Validators.required]
   });
   dataFromTagManager: object;
-  addedTagResponse: any;
-  addedTagObject: any;
   responseCode: any;
   tagNameAdded: any;
   allTags: any;
@@ -29,10 +27,9 @@ export class TagAddComponent implements OnInit {
     private sessSt: SessionStorageService
   ) {
     // we are subscribing to the click event of the backdrop
-    this.dialogRef.backdropClick().subscribe(resp => {
+    this.dialogRef.backdropClick().subscribe(() => {
       this.closeDialog();
-      console.log('closed by backdrop');
-    })
+    });
   }
 
   ngOnInit() { this.dataFromTagManager = this.data; }
@@ -48,24 +45,26 @@ export class TagAddComponent implements OnInit {
 
   closeDialog() {
     // pass data to 'parent' here
-    console.log(`All tags: ${JSON.stringify(this.allTags)}`);
-    console.log(`Filtered tags: ${JSON.stringify(this.data.filteredTags)}`);
     this.sessSt.store('filteredTags', this.allTags || this.data.filteredTags);
+    console.log(this.data.filteredTags);
     this.dialogRef.close(this.allTags || this.data.filteredTags);
   }
 
   createTag() {
-    this.tagService.addTagsLocal(this.data.custId, this.tag.value.toString()).subscribe((resp) => {
-      try {
-        this.addedTagResponse = resp;
-        this.addedTagObject = this.addedTagResponse.addedTag;
-        this.tagNameAdded = this.addedTagResponse.statusMsg;
-        this.responseCode = this.addedTagResponse.statusCode;
-        this.allTags = this.addedTagResponse.allTags;
-      } catch (e) {
-        throw Error(e);
+    const tagName = this.tag.value.toString();
+    this.tagService.createTag(this.data.custId, tagName).subscribe(() => {
+      this.reloadTags();
+    });
+  }
+
+  reloadTags() {
+    const customerId = this.sessSt.retrieve('customerId');
+    this.tagService.getTagsByCustomer(customerId).subscribe((res) => {
+      if (res && res['customerId']) {
+        this.allTags = res['tags'];
       }
-    })
+      this.closeDialog();
+    });
   }
 
 

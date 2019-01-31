@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TagService } from '../../service/tag.service';
 import { MatDialog } from '@angular/material';
 import { TagAddComponent } from '../tag-add/tag-add.component';
 import { SessionStorageService } from 'ngx-webstorage';
+import {Tag} from '../../model/tag';
 
 
 @Component({
@@ -15,10 +16,9 @@ import { SessionStorageService } from 'ngx-webstorage';
 export class TagManagerComponent {
   tagManagerForm = this.fb.group({
     userId: ['', Validators.required]
-  })
-  tagsPresent: Boolean = false;
+  });
   tagError: Boolean = false;
-  filteredTags: Object[];
+  filteredTags: Tag[];
   @ViewChild('errorMessage') errorMessage: ElementRef;
 
   constructor(
@@ -34,27 +34,14 @@ export class TagManagerComponent {
   }
 
   getTagsByCustomerId() {
-    this.tag.getTagsLocal(this.userId.value).subscribe((resp) => {
-      try {
-        // clear error div value
-        if (this.tagError) {
-          this.tagError = !this.tagError;
-          this.errorMessage.nativeElement.value = "";
-        }
-        this.filteredTags = resp;
-        this.filteredTags.length > 0 ? this.tagsPresent = true : this.tagsPresent = false;
-      } catch (e) {
-        this.tagError = true;
-        throw new Error(`Could not find records matching that customerId 
-       ${e}`)
+    this.tag.getTagsByCustomer(this.userId.value).subscribe((res) => {
+      if (res && res['customerId']) {
+        this.filteredTags = res['tags'];
+        console.log(this.filteredTags);
+        this.sessSt.store('customerId', res['customerId']);
+        this.sessSt.store('filteredTags', this.filteredTags);
       }
-      // resp.forEach((user) => {
-      //     user must conform to shape of tag.ts interface. 
-      //     How come it does type checking here? As opposed to at resp? (which should be an array)
-      //     console.log(user.tagId);
-      // });
-      this.sessSt.store('filteredTags', this.filteredTags);
-    })
+    });
   }
 
   openTagDialog() {
@@ -66,9 +53,8 @@ export class TagManagerComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog was closed');
       this.filteredTags = result;
-    })
+    });
   }
 
   proceed() {

@@ -1,4 +1,4 @@
 export class Tag {
-    tagId: number;
+    customerTagId: string;
     tagName: string;
 }

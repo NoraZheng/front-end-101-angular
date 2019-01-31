@@ -11,13 +11,15 @@ export class TransactionService {
 
   constructor(private http: HttpClient) { }
 
-  transactionUrlLocal = 'assets/transaction.json';
-  transactionUrl = '/api/transaction/transactions';
+  transactionUrl = '/api/customer/{customerId}/transactions';
 
   /**
    * Load a list of transactions from the server using http
    */
-  getTransactions(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(this.transactionUrl);
+  getTransactionsByCustomerId(customerId: number): Observable<Transaction[]> {
+    const endpoint = this.transactionUrl.replace(`{customerId}`, customerId.toString());
+    return this.http.get<Transaction[]>(endpoint);
   }
+
+
 }

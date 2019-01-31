@@ -2,12 +2,12 @@ import { Type } from 'class-transformer';
 import { Tag } from './tag';
 
 export class Transaction {
-  transactionID: number;
+  accountId: string;
+  amount: string;
+  customerId: string;
   merchantName: string;
-  transactionAmt: number;
-  transactionDt: string;
-  accountID: number;
-  customerID: number;
+  transactionDate: string;
+  transactionId: string;
   @Type(() => Tag)
   tags: Tag[];
 }

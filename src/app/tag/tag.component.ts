@@ -4,6 +4,8 @@ import { TransactionsComponent } from '../transactions/transactions.component';
 import { TagService } from '../../service/tag.service';
 import { Tag } from '../../model/tag';
 import { Transaction } from '../../model/transaction';
+import { SessionStorageService } from 'ngx-webstorage';
+
 
 @Component({
   selector: 'app-tag',
@@ -16,20 +18,22 @@ export class TagComponent implements OnInit {
   newTag: string;
   constructor(
     private dialogRef: MatDialogRef<TransactionsComponent>, //<Transac...> pointer to the 'parent' component
-    private tagService: TagService, // annotation that is like a pointer to the data in the tag service
+    private tagService: TagService, // annotation that is like a pointer to the data in the tag service,
+    private sessionStorageService: SessionStorageService,
     @Inject(MAT_DIALOG_DATA) private data: Transaction) { }
 
   ngOnInit() {
     this.tags = this.data.tags;
-    console.log(this.tags);
+
   }
 
-  addCustomTag() {
-    this.tagService.tagTransactions(this.data.transactionID, this.newTag).subscribe((res) => {
-      // updating UI
-      this.dialogRef.close();
-    });
-  }
+  // addCustomTag() {
+
+  //   this.tagService.tagTransactions(this.data.transactionID, this.newTag).subscribe((res) => {
+  //     // updating UI
+  //     this.dialogRef.close();
+  //   });
+  // }
 
   close() {
     this.dialogRef.close();

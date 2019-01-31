@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatDialogModule, MatInputModule } from '@angular/material';
+import {MatCheckbox, MatCheckboxModule, MatDialogModule, MatInputModule} from "@angular/material";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagComponent } from './tag/tag.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -38,6 +38,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
+    MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
     NgxWebstorageModule.forRoot(),
