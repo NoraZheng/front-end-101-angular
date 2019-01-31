@@ -1,68 +1,32 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Tag } from '../model/tag';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Tag} from '../model/tag';
+import {Observable, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagService {
 
-  constructor(private http: HttpClient) { }
-
-  getTagsUrl = '/api/tag/all-tag';
-  tagTransactionUrl = '/api/tag/transaction';
-  localGetTagsUrl = 'http://localhost:3600/getTags/';
-  localPostTagUrl = 'http://localhost:3600/addTag/';
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    })
+  constructor(private http: HttpClient) {
   }
 
-  getTags(): Observable<Tag[]> {
-    return this.http.get<Tag[]>(this.getTagsUrl);
+  tagUrl = '/api/customer/{customerId}/tags';
+  tagTransactionUrl = 'api/customer/tag/transactions';
+
+  tagTransactions(customerId: string, transactionTagArray) {
+    return this.http.post(this.tagTransactionUrl, transactionTagArray);
   }
 
-  tagTransactions(transationId: number, newTag: string) {
-    console.log(newTag);
-    return this.http.post(this.tagTransactionUrl, {
-      transactionId: transationId,
-      newTag: newTag
+  getTagsByCustomer(customerId: string): Observable<Tag[]> {
+    const endpoint = this.tagUrl.replace('{customerId}', customerId);
+    return this.http.get<Tag[]>(endpoint);
+  }
+
+  createTag(customerId: string, tagName: string) {
+    const endpoint = this.tagUrl.replace('{customerId}', customerId);
+    return this.http.post(endpoint, {
+      'tagName': tagName
     });
-  }
-
-  getTagsLocal(customerId): Observable<Tag[]> {
-    return this.http.get<Tag[]>(`${this.localGetTagsUrl}${customerId}`)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  addTagsLocal(customerId: string, tagName: string) {
-    return this.http.post(
-      `${this.localPostTagUrl}${customerId}/${tagName}`,
-      [
-        {
-          customerId: customerId,
-          tagToAdd: tagName
-        }
-      ]
-      // this.httpOptions
-    )
-      .pipe(
-        catchError(this.handleError)
-      )
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {  // if executes here, client-side error
-      console.log('An error occured:', error.error.message);
-    } else {  // back-end error
-      console.log(`Backend returned code ${error.status}, body was ${JSON.stringify(error.error)}`);
-    }
-
-    return throwError('Something bad happened; please try again later.');
   }
 }

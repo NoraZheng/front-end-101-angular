@@ -11,7 +11,7 @@
   <div id="tag-section">
     <h1>Your tags:</h1>
     <div *ngIf="tagError" id="errorMessage" #errorMessage>Could not find any tags for that customer ID</div>
-    <div *ngIf="tagsPresent" id="tags">
+    <div *ngIf="filteredTags" id="tags">
       <div *ngFor="let tag of filteredTags">{{tag.tagName}}</div>
       <div id="editors">
         <button *ngIf="!tagError" (click)="openTagDialog()" id="addTagEditor">Add Tags</button>

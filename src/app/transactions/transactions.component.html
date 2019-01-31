@@ -2,19 +2,25 @@
 <div class="transaction-table">
   <div class="transaction-line">
     <span class="transaction-title">Merchant</span>
-    <span class="transaction-title">Description</span>
+    <!--<span class="transaction-title">Description</span>-->
     <span class="transaction-title">Tags</span>
     <span class="transaction-title">Amount</span>
   </div>
   <div *ngFor="let transaction of transactions" class="transaction-line">
     <span class="transaction-column">{{transaction.merchantName}}</span>
-    <span class="transaction-column">{{transaction.transactionDt}}</span>
-    <span class="transaction-column">
+    <!--<span class="transaction-column">{{transaction.transactionDt}}</span>-->
+    <span class="transaction-column" *ngIf="!isEdting">
       <span *ngFor="let tag of transaction.tags">
         <span>#{{tag.tagName}}</span>
       </span>
-      <button (click)="addTags(transaction)">Add</button>
+      <button (click)="toggleTag(transaction)">Tag Transaction</button>
     </span>
-    <span class="transaction-column">{{transaction.transactionAmt | currency}}</span>
+    <span class="transaction-column" *ngIf="isEdting">
+      <mat-checkbox (change)="addTagsToTransaction(transaction, tag)" *ngFor="let tag of allCustomerTags">#{{tag.tagName}}
+      </mat-checkbox>
+      <button mat-button (click)="submit(transaction)">Tag</button>
+      <button mat-button (click)="cancel()">Cancel</button>
+    </span>
+    <span class="transaction-column">{{transaction.amount | currency}}</span>
   </div>
 </div>

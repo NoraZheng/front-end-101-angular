@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionService } from '../../service/transaction.service';
 import { Transaction } from '../../model/transaction';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { TagComponent } from '../tag/tag.component';
+import {Tag} from '../../model/tag';
+import {SessionStorageService} from 'ngx-webstorage';
+import {TagService} from '../../service/tag.service';
 
 @Component({
   selector: 'app-transactions',
@@ -12,30 +13,50 @@ import { TagComponent } from '../tag/tag.component';
 export class TransactionsComponent implements OnInit {
 
   transactions: Transaction[];
-  displayedColumns: string[] = ['Merchant', 'Description', 'Tags', 'Amount'];
+  isEdting = false;
+  allCustomerTags: Tag[];
+  editingTransactionTags = [];
 
-  constructor(private transactionService: TransactionService, private dialog: MatDialog) { }
+  constructor(private transactionService: TransactionService, private storage: SessionStorageService,
+              private tagService: TagService) { }
 
   ngOnInit() {
     this.loadTransactions();
+    this.allCustomerTags = this.storage.retrieve('filteredTags');
+    console.log(this.allCustomerTags);
   }
 
   loadTransactions() {
-    this.transactionService.getTransactions().subscribe((transactions: Transaction[]) => {
+    const customerId = this.storage.retrieve('customerId');
+    this.transactionService.getTransactionsByCustomerId(customerId).subscribe((transactions: Transaction[]) => {
       this.transactions = transactions;
     });
   }
 
-  addTags(transaction: Transaction) {
-    this.dialog.open(TagComponent, {
-      width: '300px',
-      height: '300px',
-      data: transaction
-    })
+  toggleTag() {
+    this.isEdting = true;
+  }
 
-    this.dialog.afterAllClosed.subscribe(() => {
+  submit() {
+    const customerId = this.storage.retrieve('customerId');
+    console.log(this.editingTransactionTags);
+    this.tagService.tagTransactions(customerId, this.editingTransactionTags).subscribe(() => {
       this.loadTransactions();
+    }, () => {}, () => {
+      this.isEdting = false;
+      this.editingTransactionTags = [];
     });
+  }
+
+  addTagsToTransaction(transation: Transaction, tag: Tag) {
+    this.editingTransactionTags.push({
+      transactionId: transation.transactionId.toString(),
+      customerTagId: tag.customerTagId.toString()
+    });
+  }
+
+  cancel() {
+    this.editingTransactionTags = [];
   }
 
 }
