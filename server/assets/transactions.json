@@ -1,0 +1,162 @@
+[
+    {
+        "TRANSACTION_UID": 1,
+        "ACCOUNT_CUSTOMER_UID": 1,
+        "AMOUNT": 40,
+        "MERCHANT_NAME": "Shoppers",
+        "TRANSACTED_DT": "2019-04-16 14:07",
+        "Description": "Pharmacy - Refill Drugs"
+    },
+    {
+        "TRANSACTION_UID": 2,
+        "ACCOUNT_CUSTOMER_UID": 1,
+        "AMOUNT": 156.9,
+        "MERCHANT_NAME": "Loblaws",
+        "TRANSACTED_DT": "2019-04-17 14:17",
+        "Description": "Groceries at loblaws"
+    },
+    {
+        "TRANSACTION_UID": 3,
+        "ACCOUNT_CUSTOMER_UID": 1,
+        "AMOUNT": 22.1,
+        "MERCHANT_NAME": "Esso Gas",
+        "TRANSACTED_DT": "2019-04-18 14:07",
+        "Description": "Gas-Premium Gas"
+    },
+    {
+        "TRANSACTION_UID": 4,
+        "ACCOUNT_CUSTOMER_UID": 1,
+        "AMOUNT": 34,
+        "MERCHANT_NAME": "Hudson Bay",
+        "TRANSACTED_DT": "2019-04-19 14:07",
+        "Description": "Retail-Shoe Purchase"
+    },
+    {
+        "TRANSACTION_UID": 5,
+        "ACCOUNT_CUSTOMER_UID": 1,
+        "AMOUNT": 60,
+        "MERCHANT_NAME": "Lily Spa",
+        "TRANSACTED_DT": "2019-04-20 2:07",
+        "Description": "Spa Services - Pedi Mani"
+    },
+    {
+        "TRANSACTION_UID": 6,
+        "ACCOUNT_CUSTOMER_UID": 1,
+        "AMOUNT": 77,
+        "MERCHANT_NAME": "Whole Foods",
+        "TRANSACTED_DT": "2019-04-21 14:07",
+        "Description": "Groceries at whole foods"
+    },
+    {
+        "TRANSACTION_UID": 7,
+        "ACCOUNT_CUSTOMER_UID": 1,
+        "AMOUNT": 27426.45,
+        "MERCHANT_NAME": "Leons Furniture",
+        "TRANSACTED_DT": "2019-04-22 14:08",
+        "Description": "Retail- Sofa Purchase"
+    },
+    {
+        "TRANSACTION_UID": 8,
+        "ACCOUNT_CUSTOMER_UID": 1,
+        "AMOUNT": 82,
+        "MERCHANT_NAME": "Toysrus",
+        "TRANSACTED_DT": "2019-04-23 14:07",
+        "Description": "Retails - Entertaimment "
+    },
+    {
+        "TRANSACTION_UID": 9,
+        "ACCOUNT_CUSTOMER_UID": 1,
+        "AMOUNT": 3,
+        "MERCHANT_NAME": "Starbucks",
+        "TRANSACTED_DT": "2019-04-24 14:07",
+        "Description": "Restauarnt-Coffee Purchase"
+    },
+    {
+        "TRANSACTION_UID": 10,
+        "ACCOUNT_CUSTOMER_UID": 1,
+        "AMOUNT": 100,
+        "MERCHANT_NAME": "Winners",
+        "TRANSACTED_DT": "2019-04-25 14:07",
+        "Description": "Retail-Gift Card Purchase"
+    },
+    {
+        "TRANSACTION_UID": 1,
+        "ACCOUNT_CUSTOMER_UID": 2,
+        "AMOUNT": 40,
+        "MERCHANT_NAME": "Shoppers",
+        "TRANSACTED_DT": "2019-04-16 14:07",
+        "Description": "Pharmacy - Refill Drugs"
+    },
+    {
+        "TRANSACTION_UID": 2,
+        "ACCOUNT_CUSTOMER_UID": 2,
+        "AMOUNT": 156.9,
+        "MERCHANT_NAME": "Loblaws",
+        "TRANSACTED_DT": "2019-04-17 14:17",
+        "Description": "Groceries at loblaws"
+    },
+    {
+        "TRANSACTION_UID": 3,
+        "ACCOUNT_CUSTOMER_UID": 2,
+        "AMOUNT": 22.1,
+        "MERCHANT_NAME": "Esso Gas",
+        "TRANSACTED_DT": "2019-04-18 14:07",
+        "Description": "Gas-Premium Gas"
+    },
+    {
+        "TRANSACTION_UID": 4,
+        "ACCOUNT_CUSTOMER_UID": 2,
+        "AMOUNT": 34,
+        "MERCHANT_NAME": "Hudson Bay",
+        "TRANSACTED_DT": "2019-04-19 14:07",
+        "Description": "Retail-Shoe Purchase"
+    },
+    {
+        "TRANSACTION_UID": 5,
+        "ACCOUNT_CUSTOMER_UID": 2,
+        "AMOUNT": 60,
+        "MERCHANT_NAME": "Lily Spa",
+        "TRANSACTED_DT": "2019-04-20 2:07",
+        "Description": "Spa Services - Pedi Mani"
+    },
+    {
+        "TRANSACTION_UID": 6,
+        "ACCOUNT_CUSTOMER_UID": 2,
+        "AMOUNT": 124,
+        "MERCHANT_NAME": "Whole Foods",
+        "TRANSACTED_DT": "2019-04-21 14:07",
+        "Description": "Groceries at whole foods"
+    },
+    {
+        "TRANSACTION_UID": 7,
+        "ACCOUNT_CUSTOMER_UID": 2,
+        "AMOUNT": 27426.45,
+        "MERCHANT_NAME": "Leons Furniture",
+        "TRANSACTED_DT": "2019-04-22 14:08",
+        "Description": "Retail- Sofa Purchase"
+    },
+    {
+        "TRANSACTION_UID": 8,
+        "ACCOUNT_CUSTOMER_UID": 2,
+        "AMOUNT": 82,
+        "MERCHANT_NAME": "Toysrus",
+        "TRANSACTED_DT": "2019-04-23 14:07",
+        "Description": "Retails - Entertaimment "
+    },
+    {
+        "TRANSACTION_UID": 9,
+        "ACCOUNT_CUSTOMER_UID": 2,
+        "AMOUNT": 25,
+        "MERCHANT_NAME": "Starbucks",
+        "TRANSACTED_DT": "2019-04-24 14:07",
+        "Description": "Restauarnt-Coffee Purchase"
+    },
+    {
+        "TRANSACTION_UID": 10,
+        "ACCOUNT_CUSTOMER_UID": 2,
+        "AMOUNT": 200,
+        "MERCHANT_NAME": "Winners",
+        "TRANSACTED_DT": "2019-04-25 14:07",
+        "Description": "Retail-Gift Card Purchase"
+    }
+]

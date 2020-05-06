@@ -1,26 +1,44 @@
-<h3>Your tags:</h3>
-<div class="transaction-table">
-  <div class="transaction-line">
-    <span class="transaction-title">Merchant</span>
-    <!--<span class="transaction-title">Description</span>-->
-    <span class="transaction-title">Tags</span>
-    <span class="transaction-title">Amount</span>
+<div id="transaction-view-wrapper">
+  <div id="instructions">
+    <div id="card">
+      <h1>Welcome to Transaction Retrieval 💁🏽 ℹ️ ️</h1>
+      <p>You are the owner of the biggest conglomerate in the continent of Antarctica (people want to live on Antarctica, who
+        would've known!). You are a building an interactive dashboard that will allow you to see all your key business activities
+        at a glance.
+      </p>
+      <p>Your task of the day is to find a way to retrieve, by customer ID, the
+        <span>10 most recent transactions and display them onto the page.</span>
+      </p>
+    </div>
   </div>
-  <div *ngFor="let transaction of transactions" class="transaction-line">
-    <span class="transaction-column">{{transaction.merchantName}}</span>
-    <!--<span class="transaction-column">{{transaction.transactionDt}}</span>-->
-    <span class="transaction-column" *ngIf="!isEdting">
-      <span *ngFor="let tag of transaction.tags">
-        <span>#{{tag.tagName}}</span>
-      </span>
-      <button (click)="toggleTag(transaction)">Tag Transaction</button>
-    </span>
-    <span class="transaction-column" *ngIf="isEdting">
-      <mat-checkbox (change)="addTagsToTransaction(transaction, tag)" *ngFor="let tag of allCustomerTags">#{{tag.tagName}}
-      </mat-checkbox>
-      <button mat-button (click)="submit(transaction)">Tag</button>
-      <button mat-button (click)="cancel()">Cancel</button>
-    </span>
-    <span class="transaction-column">{{transaction.amount | currency}}</span>
+  <div id="transactions">
+    <div id="user-id-search">
+      <h1>Customer ID:</h1>
+      <form [formGroup]="tagManagerForm" (ngSubmit)="getTagsByCustomerId()">
+        <label for="userId" class="visuallyhidden"></label>
+        <input type="text" id="userId" formControlName="userId" required>
+        <div class="errorMessage emptyId">
+          <div *ngIf="requiredError">Please enter a customer ID</div>
+        </div>
+      </form>
+    </div>
+    <div id="transaction-section">
+      <h1>Transactions:</h1>
+      <div *ngIf="tagError" class="errorMessage">Could not find any tags for that customer ID</div>
+      <div *ngIf="filteredTags && !tagError">
+        <table>
+          <tr>
+            <th>Transaction Date</th>
+            <th>Merchant</th>
+            <th>Amount</th>
+          </tr>
+          <tr *ngFor="let tag of filteredTags" class="transaction">
+            <td>{{tag['TRANSACTED_DT']}}</td>
+            <td>{{tag['MERCHANT_NAME']}}</td>
+            <td>{{tag['AMOUNT'] | currency}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

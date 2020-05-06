@@ -1,62 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { TransactionService } from '../../service/transaction.service';
 import { Transaction } from '../../model/transaction';
-import {Tag} from '../../model/tag';
-import {SessionStorageService} from 'ngx-webstorage';
-import {TagService} from '../../service/tag.service';
+
 
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss']
 })
-export class TransactionsComponent implements OnInit {
+export class TransactionsComponent {
+  tagManagerForm = this.fb.group({
+    userId: ['', Validators.required]
+  });
+  tagError: Boolean = false;
+  requiredError: Boolean = false;
+  filteredTags: Transaction[];
 
-  transactions: Transaction[];
-  isEdting = false;
-  allCustomerTags: Tag[];
-  editingTransactionTags = [];
 
-  constructor(private transactionService: TransactionService, private storage: SessionStorageService,
-              private tagService: TagService) { }
+  constructor(
+    private fb: FormBuilder,
+    private transaction: TransactionService
+  ) { }
 
-  ngOnInit() {
-    this.loadTransactions();
-    this.allCustomerTags = this.storage.retrieve('filteredTags');
-    console.log(this.allCustomerTags);
+  get userId() {
+    return this.tagManagerForm.get('userId');
   }
 
-  loadTransactions() {
-    const customerId = this.storage.retrieve('customerId');
-    this.transactionService.getTransactionsByCustomerId(customerId).subscribe((transactions: Transaction[]) => {
-      this.transactions = transactions;
-    });
-  }
-
-  toggleTag() {
-    this.isEdting = true;
-  }
-
-  submit() {
-    const customerId = this.storage.retrieve('customerId');
-    console.log(this.editingTransactionTags);
-    this.tagService.tagTransactions(customerId, this.editingTransactionTags).subscribe(() => {
-      this.loadTransactions();
-    }, () => {}, () => {
-      this.isEdting = false;
-      this.editingTransactionTags = [];
-    });
-  }
-
-  addTagsToTransaction(transation: Transaction, tag: Tag) {
-    this.editingTransactionTags.push({
-      transactionId: transation.transactionId.toString(),
-      customerTagId: tag.customerTagId.toString()
-    });
-  }
-
-  cancel() {
-    this.editingTransactionTags = [];
+  getTagsByCustomerId() {
+    this.tagError = this.requiredError = false;
+    if (this.userId.value) {
+      this.transaction.getTagsByCustomer(this.userId.value.toString()).subscribe((res: Transaction[]) => {
+        if (res) {
+          this.tagError = false;
+          this.filteredTags = res;
+        }
+        if (res.length === 0) {
+          this.tagError = true;
+          this.filteredTags = null;
+        }
+      });
+    } else {
+      this.requiredError = true;
+    }
   }
 
 }

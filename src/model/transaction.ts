@@ -1,13 +1,8 @@
-import { Type } from 'class-transformer';
-import { Tag } from './tag';
-
 export class Transaction {
-  accountId: string;
-  amount: string;
-  customerId: string;
-  merchantName: string;
-  transactionDate: string;
-  transactionId: string;
-  @Type(() => Tag)
-  tags: Tag[];
+  ACCOUNT_CUSTOMER_UID: number;
+  AMOUNT: number;
+  Description: string;
+  MERCHANT_NAME: string;
+  TRANSACTED_DT: string;
+  TRANSACTION_UID: number
 }
